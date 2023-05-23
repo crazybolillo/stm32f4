@@ -19,12 +19,14 @@ endif
 linker = meson.current_source_dir() + '/' + target_machine.cpu() + '.ld'
 
 stm32cube = subproject('STM32CubeF4')
-stm32_inc = stm32cube.get_variable('inc')
+
 stm32_system = stm32cube.get_variable('system_f4xx')
 stm32_startup = stm32cube.get_variable('startup_f401xc')
-ll_rcc = stm32cube.get_variable('ll_rcc')
-ll_gpio = stm32cube.get_variable('ll_gpio')
-ll_utils = stm32cube.get_variable('ll_utils')
+
+stm32_ll = stm32cube.get_variable('ll_dep')
+stm32_hal = stm32cube.get_variable('hal_dep')
+
+usbd_core = stm32cube.get_variable('usbd_core_dep')
 
 objcopy = find_program('arm-none-eabi-objcopy')
 convert_bin_cmd = [objcopy, '-O', 'binary', '@INPUT@',  '@OUTPUT@']
